@@ -21,14 +21,16 @@ The pipeline.py file create the tables to save the reddit post, comments, and su
 You must create .env file with required REQUIRED ENVIROMENT VARIBELS. docker-compose will use a .env and provide postgres connection information and starting urls for the selected subreddit to scrape.
 
 # COMMANDS TO RUN LOCALLY
-must have docker installed 
-docker-compose build
-docker-compose up
+- docker-compose build
+- docker-compose up
 
 # KUBERNETES DEPLOYMENT
 The subreddit-scraper-yaml is a cronjob run as a pod. I selected to run this every 3 hours. Each subreddit is scraped in seperate containers before starting the next. This is acomplioshed by using init containers. The postgres connection varibles are loaded from kuberentes secrets for securly injecting enviroment varibles. The url and subreddit information is injected via enviroment vaibles in the yaml file. 
 
 # WARNING
+- must have docker installed 
+- .env file created in root of the repository folder
 - promoted posts are not scraped
 - not all comments are scraped without allowing unlimited recurrion of expanding all comment comments and those comments comments and .......
-
+- must provide REQUIRED ENVIROMENT VARIBELS
+- when running kuberentes cronjob must create secret with postgres connection string and password
