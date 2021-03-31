@@ -1,0 +1,240 @@
+
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: subreddit-scrapers
+spec:
+  schedule: "0 */3 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: reddit-daytrading-spider-container
+            image: jessecow7/reddit-scraper:latest
+            resources:
+              requests:
+                memory: "2Gi"
+              limits:
+                memory: "4Gi"
+            imagePullPolicy: Always
+            env:
+            - name: start_url
+              value: 'https://www.reddit.com/r/Daytrading/new/'
+            - name: allowed_domains
+              value: 'https://www.reddit.com/r/Daytrading/new/'
+            - name: start_url_list
+              value: "['https://www.reddit.com/r/Daytrading/new/']"
+            - name: subreddit_name
+              value: 'Daytrading'
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+          restartPolicy: OnFailure
+
+          initContainers:
+          - name: reddit-wallstreetbbets-scraper-container
+            image: jessecow7/reddit-scraper:latest
+            resources:
+              requests:
+                memory: "2Gi"
+              limits:
+                memory: "4Gi"            
+            env:
+            - name: start_url
+              value: 'https://reddit.com/r/wallstreetbets/new'
+            - name: allowed_domains
+              value: 'https://reddit.com/r/wallstreetbets/new'
+            - name: start_url_list
+              value: "['https://reddit.com/r/wallstreetbets/new']"
+            - name: subreddit_name
+              value: 'wallstreetbets'
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+
+          - name: reddit-stockmarket-scraper-container
+            image: jessecow7/reddit-scraper:latest
+            resources:
+              requests:
+                memory: "2Gi"
+              limits:
+                memory: "4Gi"            
+            env:
+            - name: start_url
+              value: 'https://reddit.com/r/StockMarket/new'
+            - name: allowed_domains
+              value: 'https://reddit.com/r/StockMarket/new'
+            - name: start_url_list
+              value: "['https://reddit.com/r/StockMarket/new']"
+            - name: subreddit_name
+              value: 'StockMarket'
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+          
+          - name: reddit-stock-spider-container
+            image: jessecow7/reddit-scraper:latest
+            resources:
+              requests:
+                memory: "2Gi"
+              limits:
+                memory: "4Gi"            
+            imagePullPolicy: Always
+            env:
+            - name: start_url
+              value: 'https://www.reddit.com/r/stocks/new'
+            - name: allowed_domains
+              value: 'https://www.reddit.com/r/stocks/new'
+            - name: start_url_list
+              value: "['https://www.reddit.com/r/stocks/new']"
+            - name: subreddit_name
+              value: 'stocks'
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+         
+          - name: reddit-spacs-spider-container
+            image: jessecow7/reddit-scraper:latest
+            resources:
+              requests:
+                memory: "2Gi"
+              limits:
+                memory: "4Gi"            
+            imagePullPolicy: Always
+            env:
+            - name: start_url
+              value: 'https://www.reddit.com/r/SPACs/new'
+            - name: allowed_domains
+              value: 'https://www.reddit.com/r/SPACs/new'
+            - name: start_url_list
+              value: "['https://www.reddit.com/r/SPACs/new']"
+            - name: subreddit_name
+              value: 'SPACs'
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+
+          - name: reddit-investing-spider-container
+            image: jessecow7/reddit-scraper:latest
+            resources:
+              requests:
+                memory: "2Gi"
+              limits:
+                memory: "4Gi"            
+            imagePullPolicy: Always
+            env:
+            - name: start_url
+              value: 'https://www.reddit.com/r/investing/new'
+            - name: allowed_domains
+              value: 'https://www.reddit.com/r/investing/new'
+            - name: start_url_list
+              value: "['https://www.reddit.com/r/investing/new']"
+            - name: subreddit_name
+              value: 'investing'
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+
+          - name: reddit-securityanalysis-spider-container
+            image: jessecow7/reddit-scraper:latest
+            resources:
+              requests:
+                memory: "2Gi"
+              limits:
+                memory: "4Gi"            
+            imagePullPolicy: Always
+
+            env:
+            - name: start_url
+              value: 'https://www.reddit.com/r/SecurityAnalysis/new'
+            - name: allowed_domains
+              value: 'https://www.reddit.com/r/SecurityAnalysis/new'
+            - name: start_url_list
+              value: "['https://www.reddit.com/r/SecurityAnalysis/new']"
+            - name: subreddit_name
+              value: 'SecurityAnalysis'
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+
+          - name: reddit-pennystocks-spider-container
+            image: jessecow7/reddit-scraper:latest
+            resources:
+              requests:
+                memory: "2Gi"
+              limits:
+                memory: "4Gi"            
+            imagePullPolicy: Always
+
+            env:
+            - name: start_url
+              value: 'https://www.reddit.com/r/pennystocksAnalysis/new'
+            - name: allowed_domains
+              value: 'https://www.reddit.com/r/pennystocks/new'
+            - name: start_url_list
+              value: "['https://www.reddit.com/r/pennystocks/new']"
+            - name: subreddit_name
+              value: 'pennystocks'
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+
+

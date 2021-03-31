@@ -1,0 +1,5 @@
+scrapy
+psycopg2
+datetime
+selenium
+numpy
