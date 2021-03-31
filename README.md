@@ -1,5 +1,5 @@
 
-﻿# reddit-scraper
+# reddit-scraper
 
 This project will scrape selected subreddit for posts and comments and save the data to a postgres database. Using selenium webdriver to load the page and scroll down before scraping using scrapy.
 
