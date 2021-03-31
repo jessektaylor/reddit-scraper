@@ -10,12 +10,12 @@ The pipeline.py file create the tables to save the reddit post, comments, and su
 
 
 # REQUIRED ENVIROMENT VARIBELS 
-  postgreshost=45.456.456.456
-  postgrespassword=Jfdgdfgdfgg
-  allowed_domains=https://www.reddit.com
-  start_url='https://reddit.com/r/stocks/new'
-  start_url_list=['https://reddit.com/r/stocks/new']
-  subreddit_name=stocks
+  - postgreshost=45.456.456.456
+  - postgrespassword=Jfdgdfgdfgg
+  - allowed_domains=https://www.reddit.com
+  - start_url='https://reddit.com/r/stocks/new'
+  - start_url_list=['https://reddit.com/r/stocks/new']
+  - subreddit_name=stocks
 
 # LOCAL DEVELOPMENT
 You must create .env file with required REQUIRED ENVIROMENT VARIBELS. docker-compose will use a .env and provide postgres connection information and starting urls for the selected subreddit to scrape.
